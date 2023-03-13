@@ -37,22 +37,26 @@ function disableEdit(targetProductName) {
     }else {
          console.log('Can not find the target product, please check the product name!');
     }
+
+    // get the target dom editing field
+     const editWrapper = targetDom.querySelector('.cart-item__quantity-wrapper');
     
     // get all the edit elements
     const minusBtn = targetDom.querySelectorAll('button')[0];
     const plusBtn = targetDom.querySelectorAll('button')[1];
     const inputEl = targetDom.querySelector('input');
-    const delBtn = targetDom.querySelector('a');
+    const delBtn = targetDom.querySelector('a.button');
     
     // add disable style of each edit element
     const editEls = [minusBtn, plusBtn, inputEl, delBtn];
     for(el of editEls) {
-        el.disabled = 'true';
         el.style.cursor = 'not-allowed';
     }
+
+    inputEl.disabled = 'true'; // disable foucs for input
     
     // prevent click event that triggered from clid
-    targetDom.addEventListener('click', (evt) => {
+    editWrapper && editWrapper.addEventListener('click', (evt) => {
         evt.stopPropagation();
         evt.preventDefault(); // prevent <a> link
         customClickEvt();
